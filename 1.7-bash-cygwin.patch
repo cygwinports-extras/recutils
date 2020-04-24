@@ -1,0 +1,41 @@
+--- origsrc/recutils-1.7/bash/Makefile.am	2014-02-19 15:51:45.000000000 -0500
++++ src/recutils-1.7/bash/Makefile.am	2020-04-23 19:56:27.747740200 -0400
+@@ -25,12 +25,12 @@ lib_LTLIBRARIES = readrec.la testrec.la
+ 
+ AM_CPPFLAGS = $(COMMON_CPPFLAGS)
+ 
+-readrec_la_LDFLAGS = -module
+-readrec_la_LIBADD = $(top_builddir)/src/librec.la
++readrec_la_LDFLAGS = -module -avoid-version -no-undefined
++readrec_la_LIBADD = $(top_builddir)/src/librec.la -lbash
+ readrec_la_SOURCES = readrec.c
+ 
+-testrec_la_LDFLAGS = -module
+-testrec_la_LIBADD = $(top_builddir)/src/librec.la
++testrec_la_LDFLAGS = -module -avoid-version -no-undefined
++testrec_la_LIBADD = $(top_builddir)/src/librec.la -lbash
+ testrec_la_SOURCES = testrec.c
+ 
+ endif
+--- origsrc/recutils-1.7/bash/readrec.c	2014-02-18 15:15:36.000000000 -0500
++++ src/recutils-1.7/bash/readrec.c	2020-04-23 20:09:46.575698000 -0400
+@@ -32,7 +32,7 @@
+ #include "builtins.h"
+ #include "shell.h"
+ #include "common.h"
+-#include "builtins/bashgetopt.h"
++#include "bashgetopt.h"
+ 
+ /* The function implementing the builtin.  It uses internal_getopt to
+    parse options.  It is the same as getopt(3), but it takes a pointer
+--- origsrc/recutils-1.7/bash/testrec.c	2013-11-12 08:09:05.000000000 -0500
++++ src/recutils-1.7/bash/testrec.c	2020-04-23 20:09:53.450690100 -0400
+@@ -32,7 +32,7 @@
+ #include "builtins.h"
+ #include "shell.h"
+ #include "common.h"
+-#include "builtins/bashgetopt.h"
++#include "bashgetopt.h"
+ 
+ /* The function implementing the builtin.  It uses internal_getopt to
+    parse options.  It is the same as getopt(3), but it takes a pointer

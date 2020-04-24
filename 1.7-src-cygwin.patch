@@ -1,0 +1,14 @@
+--- origsrc/recutils-1.7/src/Makefile.am	2014-02-24 15:55:06.000000000 -0500
++++ src/recutils-1.7/src/Makefile.am	2020-04-23 20:08:04.325663900 -0400
+@@ -59,9 +59,8 @@ if USE_COVERAGE
+   AM_CFLAGS += -fprofile-arcs -ftest-coverage
+ endif
+ 
+-AM_LDFLAGS = -no-undefined
+-AM_CPPFLAGS = -I$(top_srcdir)/lib -DLOCALEDIR=\"$(localedir)\"
+-librec_la_LDFLAGS = -version-info 1:0:0
++AM_CPPFLAGS = -I$(top_builddir)/lib -I$(top_srcdir)/lib -DLOCALEDIR=\"$(localedir)\"
++librec_la_LDFLAGS = -version-info 1:0:0 -no-undefined
+ librec_la_LIBADD = $(top_builddir)/lib/librecutils.la \
+                    $(LIB_CLOCK_GETTIME)
+ 

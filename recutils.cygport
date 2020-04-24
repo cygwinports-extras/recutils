@@ -1,0 +1,44 @@
+inherit emacs
+
+NAME="recutils"
+VERSION=1.7
+RELEASE=1
+CATEGORY="Utils"
+SUMMARY="recfiles utilties"
+DESCRIPTION="GNU Recutils is a set of tools and libraries to access human-editable,
+plain text databases called recfiles. The data is stored as a sequence of
+records, each record containing an arbitrary number of named fields."
+HOMEPAGE="https://www.gnu.org/software/recutils/"
+SRC_URI="mirror://gnu/recutils/recutils-${VERSION}.tar.gz"
+PATCH_URI="
+	https://src.fedoraproject.org/rpms/recutils/raw/master/f/recutils-shared-lib-calls-exit.patch
+	https://src.fedoraproject.org/rpms/recutils/raw/master/f/recutils-Wformat.patch
+	https://src.fedoraproject.org/rpms/recutils/raw/master/f/recutils-rec-mode-fixes.patch
+	1.7-bash-cygwin.patch
+	1.7-src-cygwin.patch
+"
+
+PKG_NAMES="${NAME} librec1 librec-devel"
+recutils_CONTENTS="
+	usr/bin/*.exe
+	usr/lib/*.dll
+	${EMACS_SITE#/}/*
+	usr/share/doc/
+	usr/share/info/*
+	usr/share/locale/*/*/recutils.mo
+	usr/share/man/man1/*
+	usr/share/${NAME}/
+"
+librec1_CATEGORY="Libs"
+librec1_SUMMARY=${SUMMARY/utilities/library}
+librec1_CONTENTS="usr/bin/cygrec-1.dll"
+librec_devel_CATEGORY="Libs"
+librec_devel_SUMMARY=${librec1_SUMMARY}
+librec_devel_CONTENTS="
+	usr/include/rec.h
+	usr/lib/librec.dll.a
+"
+
+BUILD_REQUIRES="bash check gettext-devel libcurl-devel libgcrypt-devel libmdb-devel libreadline-devel libuuid-devel texinfo"
+
+DIFF_EXCLUDES="*.info version.texi stamp-vti"
